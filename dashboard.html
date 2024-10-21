@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard</title>
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #e7f0ff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-family: 'Oswald', sans-serif;
+            color: #33425c;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #33425c;
+            color: white;
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #33425c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        button:hover {
+            background-color: #2b3b4f;
+        }
+
+        @media(max-width: 768px) {
+            .actions {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            max-width: 90%;
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .modal-content .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .modal-content .modal-buttons button {
+            background-color: #33425c;
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .modal-content .modal-buttons button.cancel {
+            background-color: #ccc;
+            color: black;
+        }
+
+        .modal-content .modal-buttons button:hover {
+            background-color: #2b3b4f;
+        }
+
+        .modal-content .modal-buttons button.cancel:hover {
+            background-color: #bbb;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <h1>Employee Dashboard</h1>
+
+        <table id="employeeTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-id="1">
+                    <td class="name">Asmita Maharjan</td>
+                    <td class="department">Brand & Finance</td>
+                    <td class="email">asmita@antlerproduction.com</td>
+                    <td class="actions">
+                        <button onclick="viewProfile(1)">View Profile</button>
+                        <button onclick="editEmployee(1)">Edit</button>
+                    </td>
+                </tr>
+                <tr data-id="2">
+                    <td class="name">Prashant Anand Gopali</td>
+                    <td class="department">Chief Executive</td>
+                    <td class="email">prashant@antlerproduction.com</td>
+                    <td class="actions">
+                        <button onclick="viewProfile(2)">View Profile</button>
+                        <button onclick="editEmployee(2)">Edit</button>
+                    </td>
+                </tr>
+				   <tr data-id="3">
+                    <td class="name">Ashutosh Adhikari</td>
+                    <td class="department">Chief Operating Officer</td>
+                    <td class="email">ashutosh@antlerproduction.com</td>
+                    <td class="actions">
+                        <button onclick="viewProfile(3)">View Profile</button>
+                        <button onclick="editEmployee(3)">Edit</button>
+                    </td>
+                </tr>
+				   <tr data-id="4">
+                    <td class="name">Nischal Shrestha</td>
+                    <td class="department">Multimedia Specialist</td>
+                    <td class="email">nischal@antlerproduction.com</td>
+                    <td class="actions">
+                        <button onclick="viewProfile(4)">View Profile</button>
+                        <button onclick="editEmployee(4)">Edit</button>
+                    </td>
+                </tr>
+				   <tr data-id="5">
+                    <td class="name">Biplop Maharjan</td>
+                    <td class="department">Antler Trainee</td>
+                    <td class="email">biplop@antlerproduction.com</td>
+                    <td class="actions">
+                        <button onclick="viewProfile(5)">View Profile</button>
+                        <button onclick="editEmployee(5)">Edit</button>
+                    </td>
+                </tr>
+					   <tr data-id="6">
+                    <td class="name">Abin Shakya</td>
+                    <td class="department">Creative Lead</td>
+                    <td class="email">abin@antlerproduction.com</td>
+                    <td class="actions">
+                        <button onclick="viewProfile(6)">View Profile</button>
+                        <button onclick="editEmployee(6)">Edit</button>
+                    </td>
+                </tr>
+                <!-- Add more employee rows here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h2>Edit Employee</h2>
+            <input type="text" id="employeeName" placeholder="Name">
+            <input type="text" id="employeeDepartment" placeholder="Department">
+            <input type="email" id="employeeEmail" placeholder="Email">
+            <div class="modal-buttons">
+                <button onclick="saveChanges()">Save</button>
+                <button class="cancel" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentEmployeeRow = null;
+
+        function editEmployee(id) {
+            currentEmployeeRow = document.querySelector(`tr[data-id="${id}"]`);
+            // Populate modal fields with current employee data
+            document.getElementById('employeeName').value = currentEmployeeRow.querySelector('.name').textContent;
+            document.getElementById('employeeDepartment').value = currentEmployeeRow.querySelector('.department').textContent;
+            document.getElementById('employeeEmail').value = currentEmployeeRow.querySelector('.email').textContent;
+            document.getElementById('editModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+        function saveChanges() {
+            // Update the table row with new values
+            if (currentEmployeeRow) {
+                currentEmployeeRow.querySelector('.name').textContent = document.getElementById('employeeName').value;
+                currentEmployeeRow.querySelector('.department').textContent = document.getElementById('employeeDepartment').value;
+                currentEmployeeRow.querySelector('.email').textContent = document.getElementById('employeeEmail').value;
+            }
+            // Close the modal
+            closeModal();
+        }
+
+        function viewProfile(id) {
+            // Redirect to the profile page with a relative path based on employee ID
+            window.location.href = `employees/employee${id}.html`;
+        }
+    </script>
+</body>
+</html>
